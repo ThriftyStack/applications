@@ -1,6 +1,6 @@
 # Workload applications
 
-Separate GitOps repository for application charts. Platform services (Vault, cert-manager, Istio, storage, Crossplane) live in [`sudoceohq/argocd`](https://github.com/sudoceohq/argocd.git) under `infrastructure/`.
+Separate GitOps repository for application charts and their per-cluster values. Platform services (Vault, cert-manager, Istio, storage, Crossplane) live in [`sudoceohq/argocd`](https://github.com/sudoceohq/argocd.git) under `infrastructure/`.
 
 No application is selected yet. This repository is not watched by an automatic generator and contains no deployable chart or Application. Adding a folder does not enroll a workload.
 
@@ -9,7 +9,7 @@ No application is selected yet. This repository is not watched by an automatic g
 | Path | Purpose |
 |------|---------|
 | `charts/<name>/` | Shared customized Helm chart for one workload |
-| `clusters/<id>/<name>.yaml` | Per-cluster / environment value overlays |
+| `clusters/<id>/<name>.yaml` | Per-cluster / environment value overlays (same repo as the chart so Argo can reference `valueFiles`) |
 
 ## Enrollment
 
