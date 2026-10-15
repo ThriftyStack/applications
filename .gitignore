@@ -1,6 +1,6 @@
 .DS_Store
-*.secret.yaml
-*.secret.yml
-.secrets/
 .evidence/
-__pycache__/
+*.tgz
+charts/*/charts/
+.idea/
+.vscode/

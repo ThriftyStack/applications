@@ -15,26 +15,21 @@ concurrency:
 
 jobs:
   validate:
-    name: Chart layout
+    name: Repository contracts
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
-      - name: Reject platform paths and require chart metadata
+      - name: Refuse platform paths and empty chart shells
         run: |
           set -euo pipefail
-          if [ -d infrastructure ] || [ -d clusters ] || [ -d charts/cluster-apps ]; then
-            echo 'Platform GitOps paths must not live in the applications repository' >&2
-            exit 1
+          test ! -d infrastructure
+          test ! -d charts/cluster-apps
+          if compgen -G 'charts/*/Chart.yaml' > /dev/null; then
+            for chart in charts/*/Chart.yaml; do
+              dir="$(dirname "$chart")"
+              test -f "$dir/values.yaml"
+            done
           fi
-          shopt -s nullglob
-          charts=(charts/*/)
-          if [ ${#charts[@]} -eq 0 ]; then
-            echo 'No workload charts yet; layout OK'
-            exit 0
-          fi
-          for chart in "${charts[@]}"; do
-            test -f "${chart}Chart.yaml"
-          done

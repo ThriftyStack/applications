@@ -1,24 +1,23 @@
 # Workload applications
 
-Platform GitOps (Argo CD roots, cluster profiles, Vault/Istio/infrastructure) lives in the sibling repository [`sudoceohq/argocd`](https://github.com/sudoceohq/argocd). This repository holds **workload Helm charts only**.
+Separate GitOps repository for application charts. Platform services (Vault, cert-manager, Istio, storage, Crossplane) live in [`sudoceohq/argocd`](https://github.com/sudoceohq/argocd.git) under `infrastructure/`.
 
-No application is selected yet. This repository is not watched by an automatic generator and contains no deployable Application. Adding a folder does not enroll a workload.
+No application is selected yet. This repository is not watched by an automatic generator and contains no deployable chart or Application. Adding a folder does not enroll a workload.
 
 ## Layout
 
 | Path | Purpose |
 |------|---------|
 | `charts/<name>/` | Shared customized Helm chart for one workload |
+| `clusters/<id>/<name>.yaml` | Per-cluster / environment value overlays |
 
-Per-cluster / environment overrides and Argo CD `Application` / workload `AppProject` objects stay in the **platform** repository under `clusters/<id>/applications/` and hub-reviewed declarations. The hub owns Application objects; destination clusters run workloads.
+## Enrollment
 
-## Enrollment rules
+1. Complete Vault / issuer / mesh qualification and renewal gates in the platform repo.
+2. Review an explicit **workload** AppProject in the platform repo (`workloadProjects` on the management cluster profile). That project may source only this repository and only approved workload namespaces — never cluster-scoped resources and never the hub `argocd` namespace.
+3. Review an Application owned by the hub that points `spec.source.repoURL` at this repository and a chart under `charts/`. Destination clusters run workloads; the hub owns Application objects.
+4. Preserve unique application names, explicit destinations, immutable image digests, and per-cluster rollout decisions.
 
-1. Finish Vault / issuer / mesh qualification and renewal gates in the platform repo.
-2. Review an explicit workload AppProject (sources **only** this repository; no cluster-scoped resources by default; no hub `argocd` namespace destination).
-3. Review an explicit Application pointing at `charts/<name>` here, with immutable image digests and an explicit destination.
-4. Opt the target namespace into the mesh deliberately; do not reuse platform namespaces.
+Supply source chart path, registry/image digests, target cluster/environment, namespace, service/port and metrics endpoint before activation. Define traffic/error/latency requirements and test canary abort/recovery before adding Rollouts. No controller or public endpoint is created by this guide.
 
-Preserve unique application names, explicit destinations, and per-cluster rollout decisions. Supply registry/image, service/port, metrics endpoint, and traffic/error/latency requirements before Rollouts. No controller or public endpoint is created by this guide.
-
-See the platform repository README for promotion and multicluster onboarding.
+See the platform repo for cluster onboarding and reviewed application delivery.
