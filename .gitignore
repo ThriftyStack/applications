@@ -1,0 +1,6 @@
+.DS_Store
+*.secret.yaml
+*.secret.yml
+.secrets/
+.evidence/
+__pycache__/
