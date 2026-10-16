@@ -18,7 +18,7 @@ Rules:
 - Subject in imperative mood, lowercase description, no trailing period
 - Keep the subject ≤ 72 characters
 - Group a change and everything that follows from it (code, tests, docs) into one commit
-- Body explains **why**, not what — omit lines that are obvious from the diff
+- Always include a commit body that explains **why** this was changed (motivation, constraint, or failure mode) — never restate the subject or list what the diff already shows
 - Breaking changes: `BREAKING CHANGE:` in the body, or `!` after the type/scope
 
 ```text
@@ -26,8 +26,15 @@ Rules:
 Add chart stuff
 Updated readme
 
+feat(charts): add shared chart skeleton for the first workload
+
+Add a shared chart skeleton for the first workload.
+
 # ✅ GOOD
 feat(charts): add shared chart skeleton for the first workload
+
+Workloads need a shared chart base so per-cluster values can
+live next to the chart without duplicating structure.
 
 docs: clarify that per-cluster values live with workload charts
 
