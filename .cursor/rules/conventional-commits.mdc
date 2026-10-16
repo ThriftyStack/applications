@@ -1,0 +1,38 @@
+---
+description: Always use Conventional Commits for git commit messages
+alwaysApply: true
+---
+
+# Conventional Commits
+
+Every commit subject must follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>(optional-scope): <description>
+```
+
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+
+Rules:
+
+- Subject in imperative mood, lowercase description, no trailing period
+- Keep the subject ≤ 72 characters
+- Group a change and everything that follows from it (code, tests, docs) into one commit
+- Body explains **why**, not what — omit lines that are obvious from the diff
+- Breaking changes: `BREAKING CHANGE:` in the body, or `!` after the type/scope
+
+```text
+# ❌ BAD
+Add chart stuff
+Updated readme
+
+# ✅ GOOD
+feat(charts): add shared chart skeleton for the first workload
+
+docs: clarify that per-cluster values live with workload charts
+
+Argo single-source Applications require valueFiles in the same
+repository as the chart.
+```
+
+When creating commits for the user, always use this format (including the HEREDOC flow from the commit workflow).
