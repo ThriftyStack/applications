@@ -22,7 +22,7 @@ Open the page that matches the change.
 - [Governance](https://www.notion.so/400972443c7081b291f1d4cf96989474) for how a change is approved.
 - [ADRs](https://www.notion.so/400972443c708169b262e47f7c9c56e0) for a decision.
 - [Disaster Recovery](https://www.notion.so/400972443c70814e9ebccf1806f12504) when a workload change affects recovery.
-- [Systems](https://www.notion.so/400972443c7081658761c83b9fc2de16) as the index of platform systems. Read [Vault](https://www.notion.so/400972443c70813db431fc0bc32215e2) when the change touches secret delivery or an enrollment gate. Read [Authentik](https://www.notion.so/400972443c7081d2885dcba7e839fedf) when the change touches identity. Read [NetBird](https://www.notion.so/400972443c70815fb7b7db1baf120d43) when the change touches network access.
+- [Systems](https://www.notion.so/400972443c7081658761c83b9fc2de16) as the index of platform systems. Read [Vault](https://www.notion.so/400972443c70813db431fc0bc32215e2) when the change touches secret delivery or an enrollment gate. Read [Authentik](https://www.notion.so/400972443c7081d2885dcba7e839fedf) when the change touches identity.
 
 Share the Notion root page with every account that signs in through MCP. An empty tool result means that account cannot see the page.
 
